@@ -1,49 +1,115 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+	<title>YellowAnt's Docker 101 Session</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+	<link rel="stylesheet" href="css/index.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- What is Docker? -->
+			<section>
+
+				<section>
+					<h1>What is Docker?</h1>
+					<p class="fragment">A platform which allows you to package your application code and its dependencies into an
+						isolated "container" which can be ported to any infrastructure.</p>
+				</section>
+
+				<section>
+					<h2>Docker Terminology</h2>
+					<table>
+						<tr><td class="fragment">Engine</td><td>-</td><td class="fragment">Platform</td></tr>
+						<tr><td class="fragment">Dockerfile</td><td>-</td><td class="fragment">Instructions</td></tr>
+						<tr><td class="fragment">Image</td><td>-</td><td class="fragment">Template</td></tr>
+						<tr><td class="fragment">Container</td><td>-</td><td class="fragment">Process</td></tr>
+					</table>
+				</section>
+
+				<section>
+					<h2>Docker vs Virtual Machines</h2>
+					<table>
+						<thead><tr>
+							<td>Docker</td>
+							<td>VM</td>
+						</tr></thead>
+						<tbody>
+							<tr>
+								<td class="fragment">Shared kernel and images</td>
+								<td class="fragment">Independent system</td>
+							</tr>
+							<tr>
+								<td class="fragment">Faster spin up</td>
+								<td class="fragment">Slower boot up</td>
+							</tr>
+							<tr>
+								<td class="fragment">Security issues if not managed</td>
+								<td class="fragment">Complete isolation</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h2>Benefits</h2>
+					<p class="fragment">Microservices</p>
+					<p class="fragment">Hybrid Cloud</p>
+					<p class="fragment">CI/CD</p>
+					<p class="fragment">Modernized Traditional Apps</p>
+				</section>
+
+			</section>
+
+			<!-- Getting Started with Docker -->
+			<section>Getting Started with Docker</section>
+
+			<!-- Debugging -->
+			<section>Debugging</section>
+
+			<!-- Docker Compose -->
+			<section>Docker Compose</section>
+
+			<!-- Real World Example -->
+			<section>Real World Example</section>
 		</div>
+	</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+	</script>
+</body>
+
 </html>
