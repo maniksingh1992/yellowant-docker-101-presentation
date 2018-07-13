@@ -34,6 +34,15 @@
 					<h1>What is Docker?</h1>
 					<p class="fragment">A platform which allows you to package your application code and its dependencies into an
 						isolated "container" which can be ported to any infrastructure.</p>
+
+					<aside class="notes">
+						<ul>
+							<li>platform where app should be packaged in a certain way</li>
+							<li>any infrastructure - windows, linux, osx</li>
+							<li>ported - works any where, no need to change config</li>
+							<li>code and dependencies all are bundled together</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -41,9 +50,16 @@
 					<table>
 						<tr><td class="fragment">Engine</td><td>-</td><td class="fragment">Platform</td></tr>
 						<tr><td class="fragment">Dockerfile</td><td>-</td><td class="fragment">Instructions</td></tr>
-						<tr><td class="fragment">Image</td><td>-</td><td class="fragment">Template</td></tr>
-						<tr><td class="fragment">Container</td><td>-</td><td class="fragment">Process</td></tr>
+						<tr><td class="fragment">Image</td><td>-</td><td class="fragment">Executable Template</td></tr>
+						<tr><td class="fragment">Container</td><td>-</td><td class="fragment">Runtime Instance</td></tr>
+						<tr><td class="fragment">Hub</td><td>-</td><td class="fragment">Cloud-based Image Registry Service</td></tr>
 					</table>
+
+					<aside class="notes">
+							<ul>
+								<li>dockerfile - prereqs, code, installs, network, disk management, other commands</li>
+							</ul>
+						</aside>
 				</section>
 
 				<section>
@@ -63,6 +79,10 @@
 								<td class="fragment">Slower boot up</td>
 							</tr>
 							<tr>
+								<td class="fragment">Lower resources and easier updates</td>
+								<td class="fragment">Heavier resources and tedious updates</td>
+							</tr>
+							<tr>
 								<td class="fragment">Security issues if not managed</td>
 								<td class="fragment">Complete isolation</td>
 							</tr>
@@ -70,18 +90,75 @@
 					</table>
 				</section>
 
-				<section>
-					<h2>Benefits</h2>
-					<p class="fragment">Microservices</p>
-					<p class="fragment">Hybrid Cloud</p>
-					<p class="fragment">CI/CD</p>
-					<p class="fragment">Modernized Traditional Apps</p>
-				</section>
-
 			</section>
 
 			<!-- Getting Started with Docker -->
-			<section>Getting Started with Docker</section>
+			<section>
+				<h1>Getting Started with Docker</h1>
+				<ol>
+					<li class="fragment">Build an image and run it as one container</li>
+					<li class="fragment">Scale your app to run multiple containers</li>
+					<li class="fragment">Distribute your app across a cluster</li>
+					<li class="fragment">Stack services by adding a backend database</li>
+					<li class="fragment">Deploy your app to production</li>
+				</ol>
+			</section>
+
+			<!-- Build an image and run it as one container -->
+			<section>
+
+				<section>
+					<h1>Build an image and run it as one container</h1>
+				</section>
+
+				<section>
+					<p>Dockerfile</p>
+					<pre><code data-trim data-noescape>
+						# Use an official Python runtime as a parent image
+						FROM python:2.7-slim
+
+						# Set the working directory to /app
+						WORKDIR /app
+
+						# Copy the current directory contents into the container at /app
+						ADD . /app
+
+						# Install any needed packages specified in requirements.txt
+						RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+						# Make port 80 available to the world outside this container
+						EXPOSE 80
+
+						# Define environment variable
+						ENV NAME World
+
+						# Run app.py when the container launches
+						CMD ["python", "app.py"]
+					</code></pre>
+				</section>
+
+				<section>
+					<p>requirements.txt</p>
+					<pre><code data-trim data-noescape>
+						Flask
+					</code></pre>
+					<p>app.py</p>
+					<pre><code data-trim>
+						from flask import Flask
+						import os
+
+						app = Flask(__name__)
+
+						@app.route("/")
+						def hello():
+							name = os.getenv("NAME", "world")
+							return "<h3>Hello {name}!</h3>".format(name)
+
+						if __name__ == "__main__":
+							app.run(host='0.0.0.0', port=80)
+					</code></pre>
+				</section>
+			</section>
 
 			<!-- Debugging -->
 			<section>Debugging</section>
