@@ -2,217 +2,303 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<title>YellowAnt's Docker 101 Session</title>
+  <title>YellowAnt's Docker 101 Session</title>
 
-	<link rel="stylesheet" href="css/reveal.css">
-	<link rel="stylesheet" href="css/theme/black.css">
-	<link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css">
+  <link rel="stylesheet" href="css/index.css">
 
-	<!-- Theme used for syntax highlighting of code -->
-	<link rel="stylesheet" href="lib/css/zenburn.css">
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
 
-	<!-- Printing and PDF exports -->
-	<script>
-		var link = document.createElement('link');
-		link.rel = 'stylesheet';
-		link.type = 'text/css';
-		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
-		document.getElementsByTagName('head')[0].appendChild(link);
-	</script>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
 </head>
 
 <body>
-	<div class="reveal">
-		<div class="slides">
-			<!-- What is Docker? -->
-			<section>
+  <div class="reveal">
+    <div class="slides">
+      <!-- What is Docker? -->
+      <section>
 
-				<section>
-					<h1>What is Docker?</h1>
-					<p class="fragment">A platform which allows you to package your application code and its dependencies into an
-						isolated "container" which can be ported to any infrastructure.</p>
+        <section>
+          <h1>What is Docker?</h1>
+          <p class="fragment">A platform which allows you to package your application code and its dependencies into an isolated "container"
+            which can be ported to any infrastructure.</p>
 
-					<aside class="notes">
-						<ul>
-							<li>platform where app should be packaged in a certain way</li>
-							<li>any infrastructure - windows, linux, osx</li>
-							<li>ported - works any where, no need to change config</li>
-							<li>code and dependencies all are bundled together</li>
-						</ul>
-					</aside>
-				</section>
+          <aside class="notes">
+            <ul>
+              <li>platform where app should be packaged in a certain way</li>
+              <li>any infrastructure - windows, linux, osx</li>
+              <li>ported - works any where, no need to change config</li>
+              <li>code and dependencies all are bundled together</li>
+            </ul>
+          </aside>
+        </section>
 
-				<section>
-					<h2>Docker Terminology</h2>
-					<table>
-						<tr><td class="fragment">Engine</td><td>-</td><td class="fragment">Platform</td></tr>
-						<tr><td class="fragment">Dockerfile</td><td>-</td><td class="fragment">Instructions</td></tr>
-						<tr><td class="fragment">Image</td><td>-</td><td class="fragment">Executable Template</td></tr>
-						<tr><td class="fragment">Container</td><td>-</td><td class="fragment">Runtime Instance</td></tr>
-						<tr><td class="fragment">Hub</td><td>-</td><td class="fragment">Cloud-based Image Registry Service</td></tr>
-					</table>
+        <section>
+          <h2>Docker Terminology</h2>
+          <table>
+            <tr>
+              <td class="fragment">Engine</td>
+              <td>-</td>
+              <td class="fragment">Platform</td>
+            </tr>
+            <tr>
+              <td class="fragment">Dockerfile</td>
+              <td>-</td>
+              <td class="fragment">Instructions</td>
+            </tr>
+            <tr>
+              <td class="fragment">Image</td>
+              <td>-</td>
+              <td class="fragment">Executable Template</td>
+            </tr>
+            <tr>
+              <td class="fragment">Container</td>
+              <td>-</td>
+              <td class="fragment">Runtime Instance</td>
+            </tr>
+            <tr>
+              <td class="fragment">Hub</td>
+              <td>-</td>
+              <td class="fragment">Cloud-based Image Registry Service</td>
+            </tr>
+          </table>
 
-					<aside class="notes">
-							<ul>
-								<li>dockerfile - prereqs, code, installs, network, disk management, other commands</li>
-							</ul>
-						</aside>
-				</section>
+          <aside class="notes">
+            <ul>
+              <li>dockerfile - prereqs, code, installs, network, disk management, other commands</li>
+            </ul>
+          </aside>
+        </section>
 
-				<section>
-					<h2>Docker vs Virtual Machines</h2>
-					<table>
-						<thead><tr>
-							<td>Docker</td>
-							<td>VM</td>
-						</tr></thead>
-						<tbody>
-							<tr>
-								<td class="fragment">Shared kernel and images</td>
-								<td class="fragment">Independent system</td>
-							</tr>
-							<tr>
-								<td class="fragment">Faster spin up</td>
-								<td class="fragment">Slower boot up</td>
-							</tr>
-							<tr>
-								<td class="fragment">Lower resources and easier updates</td>
-								<td class="fragment">Heavier resources and tedious updates</td>
-							</tr>
-							<tr>
-								<td class="fragment">Security issues if not managed</td>
-								<td class="fragment">Complete isolation</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
+        <section>
+          <h2>Docker vs Virtual Machines</h2>
+          <table>
+            <thead>
+              <tr>
+                <td>Docker</td>
+                <td>VM</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fragment">Shared kernel and images</td>
+                <td class="fragment">Independent system</td>
+              </tr>
+              <tr>
+                <td class="fragment">Faster spin up</td>
+                <td class="fragment">Slower boot up</td>
+              </tr>
+              <tr>
+                <td class="fragment">Lower resources and easier updates</td>
+                <td class="fragment">Heavier resources and tedious updates</td>
+              </tr>
+              <tr>
+                <td class="fragment">Security issues if not managed</td>
+                <td class="fragment">Complete isolation</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
 
-			</section>
+      </section>
 
-			<!-- Getting Started with Docker -->
-			<section>
-				<h1>Getting Started with Docker</h1>
-				<ol>
-					<li class="fragment">Build an image and run it as one container</li>
-					<li class="fragment">Scale your app to run multiple containers</li>
-					<li class="fragment">Distribute your app across a cluster</li>
-					<li class="fragment">Stack services by adding a backend database</li>
-					<li class="fragment">Deploy your app to production</li>
-				</ol>
-			</section>
+      <!-- Getting Started with Docker -->
+      <section>
+        <h1>Getting Started with Docker</h1>
+        <ol>
+          <li class="fragment">Build an image and run it as one container</li>
+          <li class="fragment">Scale your app to run multiple containers</li>
+          <li class="fragment">Distribute your app across a cluster</li>
+          <li class="fragment">Stack services by adding a backend database</li>
+          <li class="fragment">Deploy your app to production</li>
+        </ol>
+      </section>
 
-			<!-- Build an image and run it as one container -->
-			<section>
+      <!-- Build an image and run it as one container -->
+      <section>
 
-				<section>
-					<h1>Build an image and run it as one container</h1>
-				</section>
+        <section>
+          <h1>Build an image and run it as one container</h1>
+        </section>
 
-				<section>
-					<p>Dockerfile</p>
-					<pre><code data-trim data-noescape>
-						# Use an official Python runtime as a parent image
-						FROM python:2.7-slim
+        <section>
+          <p>Dockerfile</p>
+          <pre><code data-trim data-noescape>
+            # Use an official Python runtime as a parent image
+            FROM python:2.7-slim
 
-						# Set the working directory to /app
-						WORKDIR /app
+            # Set the working directory to /app
+            WORKDIR /app
 
-						# Copy the current directory contents into the container at /app
-						ADD . /app
+            # copy requirements.txt into /app
+            ADD requirements.txt /app
 
-						# Install any needed packages specified in requirements.txt
-						RUN pip install --trusted-host pypi.python.org -r requirements.txt
+            # Install any needed packages specified in requirements.txt
+            RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-						# Make port 80 available to the world outside this container
-						EXPOSE 80
+            # Copy the current directory contents into the container at /app
+            ADD . /app
 
-						# Define environment variable
-						ENV NAME World
+            # Make port 80 available to the world outside this container
+            EXPOSE 80
 
-						# Run app.py when the container launches
-						CMD ["python", "app.py"]
-					</code></pre>
-				</section>
+            # Define environment variable
+            ENV NAME World
 
-				<section>
-					<p>requirements.txt</p>
-					<pre><code data-trim data-noescape>
-						Flask
-					</code></pre>
-					<p>app.py</p>
-					<pre><code data-trim>
-						from flask import Flask
-						import os
+            # Run app.py when the container launches
+            CMD ["python", "app.py"]
+          </code></pre>
+        </section>
 
-						app = Flask(__name__)
+        <section>
+          <p>requirements.txt</p>
+          <pre><code data-trim data-noescape>
+            Flask
+          </code></pre>
+          <p>app.py</p>
+          <pre><code data-trim>
+            from flask import Flask
+            import os
 
-						@app.route("/")
-						def hello():
-							name = os.getenv("NAME", "world")
-							return "<h3>Hello {name}!</h3>".format(name)
+            app = Flask(__name__)
 
-						if __name__ == "__main__":
-							app.run(host='0.0.0.0', port=80)
-					</code></pre>
-				</section>
+            @app.route("/")
+            def hello():
+                name = os.getenv("NAME", "world")
 
-				<section>
-					<h2>Start a Container</h2>
-					<div class="fragment">
-						<p>Build a Docker Image</p>
-						<pre><code data-trim>$ docker build -t friendlyhello .</code></pre>
-					</div>
-					<div class="fragment">
-						<p>Check the Docker Image</p>
-						<pre><code data-trim>
-							$ docker image ls
+                html = "<h3>Hello {name}!</h3>"
 
-							REPOSITORY            TAG                 IMAGE ID
-							friendlyhello         latest              326387cea398
-						</code></pre>
-					</div>
-					<div class="fragment">
-						<p>Run a container process</p>
-						<pre><code data-trim>$ docker run -p 4000:80 friendlyhello</code></pre>
-					</div>
-				</section>
+                return html.format(name=name)
 
-				<section>
-					<h2>Browser Output</h2>
-					<img data-src="images/first-app.png">
-				</section>
-			</section>
+            if __name__ == "__main__":
+                app.run(host='0.0.0.0', port=80)
+          </code></pre>
+        </section>
 
-			<!-- Debugging -->
-			<section>Debugging</section>
+        <section>
+          <h2>Start a Container</h2>
+          <div class="fragment">
+            <p>Build a Docker Image</p>
+            <pre><code data-trim>$ docker build -t friendlyhello .</code></pre>
+          </div>
+          <div class="fragment">
+            <p>Check the Docker Image</p>
+            <pre><code data-trim>
+              $ docker image ls
 
-			<!-- Docker Compose -->
-			<section>Docker Compose</section>
+              REPOSITORY            TAG                 IMAGE ID
+              friendlyhello         latest              326387cea398
+            </code></pre>
+          </div>
+          <div class="fragment">
+            <p>Run a container process</p>
+            <pre><code data-trim>$ docker run -p 4000:80 friendlyhello</code></pre>
+          </div>
+        </section>
 
-			<!-- Real World Example -->
-			<section>Real World Example</section>
-		</div>
-	</div>
+        <section>
+          <h2>Browser Output</h2>
+          <img data-src="images/first-app.png">
+        </section>
+      </section>
 
-	<script src="lib/js/head.min.js"></script>
-	<script src="js/reveal.js"></script>
+      <!-- Scale your app to run multiple containers -->
+      <section>
+        <section>
+          <h1>Scale your app to run multiple containers</h1>
+          <p class="fragment">Docker Compose</p>
+          <p class="fragment">Services</p>
+        </section>
 
-	<script>
-		// More info about config & dependencies:
-		// - https://github.com/hakimel/reveal.js#configuration
-		// - https://github.com/hakimel/reveal.js#dependencies
-		Reveal.initialize({
-			dependencies: [
-				{ src: 'plugin/markdown/marked.js' },
-				{ src: 'plugin/markdown/markdown.js' },
-				{ src: 'plugin/notes/notes.js', async: true },
-				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
-			]
-		});
-	</script>
+        <section>
+          <p>docker-compose.yml</p>
+          <pre><code data-trim data-noescape>
+            version: "3"
+            services:
+              web:
+                image: friendlyhello
+                deploy:
+                  replicas: 5
+                  resources:
+                    limits:
+                      cpus: "0.1"
+                      memory: 50M
+                  restart_policy:
+                    condition: on-failure
+                ports:
+                  - "4000:80"
+                networks:
+                  - webnet
+            networks:
+              webnet:
+          </code></pre>
+
+          <aside class="notes">
+            This docker-compose.yml file tells Docker to do the following: Pull the image we uploaded in step 2 from the registry. Run
+            5 instances of that image as a service called web, limiting each one to use, at most, 10% of the CPU (across
+            all cores), and 50MB of RAM. Immediately restart containers if one fails. Map port 4000 on the host to web’s
+            port 80. Instruct web’s containers to share port 80 via a load-balanced network called webnet. (Internally, the
+            containers themselves publish to web’s port 80 at an ephemeral port.) Define the webnet network with the default
+            settings (which is a load-balanced overlay network).
+          </aside>
+        </section>
+
+        <section>
+          <p>app.py</p>
+          <pre><code data-trim data-noescape>
+            from flask import Flask
+            import os
+            <mark>import socket</mark>
+
+            app = Flask(__name__)
+
+            @app.route("/")
+            def hello():
+                name = os.getenv("NAME", "world")
+                hostname = socket.gethostname()
+
+                <mark>html = "&lt;h3&gt;Hello {name}!&lt;/h3&gt;" \
+                        "&lt;b&gt;Hostname: {hostname}&lt;/b&gt;"</mark>
+
+                <mark>return html.format(name=name, hostname=hostname)</mark>
+
+            if __name__ == "__main__":
+                app.run(host='0.0.0.0', port=80)
+          </code></pre>
+        </section>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+      dependencies: [
+        { src: 'plugin/markdown/marked.js' },
+        { src: 'plugin/markdown/markdown.js' },
+        { src: 'plugin/notes/notes.js', async: true },
+        { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+      ]
+    });
+  </script>
 </body>
 
 </html>
