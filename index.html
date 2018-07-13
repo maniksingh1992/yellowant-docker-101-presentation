@@ -120,7 +120,7 @@
         <ol>
           <li class="fragment">Build an image and run it as one container</li>
           <li class="fragment">Run multiple containers with Docker Compose</li>
-          <li class="fragment">Development mode and debugging</li>
+          <li class="fragment">Development setup and debugging</li>
           <li class="fragment">Scale your app to run multiple containers</li>
           <li class="fragment">Real world example</li>
         </ol>
@@ -183,7 +183,7 @@
                 return html.format(name=name)
 
             if __name__ == "__main__":
-                app.run(host='0.0.0.0', port=80)
+                app.run(host='0.0.0.0', port=80, debug=True)
           </code></pre>
         </section>
 
@@ -273,7 +273,7 @@
                 return html.format(name=name<mark>, count=count</mark>)
 
             if __name__ == "__main__":
-                app.run(host='0.0.0.0', port=80)
+                app.run(host='0.0.0.0', port=80, debug=True)
           </code></pre>
         </section>
 
@@ -301,72 +301,71 @@
 
       </section>
 
-      <!-- Scale your app to run multiple containers -->
+      <!-- Development mode and debugging -->
       <section>
         <section>
-          <h1>Scale your app to run multiple containers</h1>
-          <p class="fragment">Docker Compose</p>
-          <p class="fragment">Services</p>
+          <h1>Development Setup and Debugging</h1>
+          <p class="fragment">Update your code on the fly</p>
+          <p class="fragment">Persist storage</p>
+          <p class="fragment">Access a container through a terminal</p>
         </section>
 
         <section>
-          <p>docker-compose.yml</p>
-          <pre><code data-trim data-noescape>
-            version: "3"
-            services:
-              web:
-                image: friendlyhello
-                deploy:
-                  replicas: 5
-                  resources:
-                    limits:
-                      cpus: "0.1"
-                      memory: 50M
-                  restart_policy:
-                    condition: on-failure
-                ports:
-                  - "4000:80"
-                networks:
-                  - webnet
-            networks:
-              webnet:
-          </code></pre>
-
-          <aside class="notes">
-            This docker-compose.yml file tells Docker to do the following: Pull the image we uploaded in step 2 from the registry. Run
-            5 instances of that image as a service called web, limiting each one to use, at most, 10% of the CPU (across
-            all cores), and 50MB of RAM. Immediately restart containers if one fails. Map port 4000 on the host to web’s
-            port 80. Instruct web’s containers to share port 80 via a load-balanced network called webnet. (Internally, the
-            containers themselves publish to web’s port 80 at an ephemeral port.) Define the webnet network with the default
-            settings (which is a load-balanced overlay network).
-          </aside>
+          <h2>Update your code on the fly</h2>
+          <div class="fragment">
+            <p>docker-compose.yml</p>
+            <pre><code data-trim data-noescape>
+              version: '3'
+              services:
+                web:
+                  build: .
+                  ports:
+                    - "4000:80"
+                  <mark>volumes:
+                    - .:/app</mark>
+                redis:
+                  image: "redis:alpine"
+            </code></pre>
+          </div>
         </section>
 
         <section>
-          <p>app.py</p>
-          <pre><code data-trim data-noescape>
-            from flask import Flask
-            import os
-            <mark>import socket</mark>
+          <h2>Persist storage</h2>
+          <div class="fragment">
+            <p>docker-compose.yml</p>
+            <pre><code data-trim data-noescape>
+              version: '3'
+              services:
+                web:
+                  build: .
+                  ports:
+                    - "4000:80"
+                  volumes:
+                    - .:/app
+                    <mark>- syslogvolume:/var/log</mark>
+                redis:
+                  image: "redis:alpine"
+                  <mark>volumes:
+                    - redisdb:/data</mark>
+              <mark>volumes:
+                syslogvolume:
+                redisdb:
+              </mark>
+            </code></pre>
+          </div>
+        </section>
 
-            app = Flask(__name__)
-
-            @app.route("/")
-            def hello():
-                name = os.getenv("NAME", "world")
-                hostname = socket.gethostname()
-
-                <mark>html = "&lt;h3&gt;Hello {name}!&lt;/h3&gt;" \
-                        "&lt;b&gt;Hostname: {hostname}&lt;/b&gt;"</mark>
-
-                <mark>return html.format(name=name, hostname=hostname)</mark>
-
-            if __name__ == "__main__":
-                app.run(host='0.0.0.0', port=80)
-          </code></pre>
+        <section>
+          <h2>Access a container through a terminal</h2>
+          <div class="fragment">
+            <pre><code data-trim>$ docker container ls</code></pre>
+            <img data-src="images/docker-container-ls.png">
+          </div>
+          <div class="fragment">
+            <pre><code data-trim>$ docker exec -it 3d80d5e297ea /bin/sh</code></pre>
+          </div>
         </section>
       </section>
-
     </div>
   </div>
 
