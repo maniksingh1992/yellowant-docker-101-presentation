@@ -158,6 +158,32 @@
 							app.run(host='0.0.0.0', port=80)
 					</code></pre>
 				</section>
+
+				<section>
+					<h2>Start a Container</h2>
+					<div class="fragment">
+						<p>Build a Docker Image</p>
+						<pre><code data-trim>$ docker build -t friendlyhello .</code></pre>
+					</div>
+					<div class="fragment">
+						<p>Check the Docker Image</p>
+						<pre><code data-trim>
+							$ docker image ls
+
+							REPOSITORY            TAG                 IMAGE ID
+							friendlyhello         latest              326387cea398
+						</code></pre>
+					</div>
+					<div class="fragment">
+						<p>Run a container process</p>
+						<pre><code data-trim>$ docker run -p 4000:80 friendlyhello</code></pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>Browser Output</h2>
+					<img data-src="images/first-app.png">
+				</section>
 			</section>
 
 			<!-- Debugging -->
