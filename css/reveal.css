@@ -6,6 +6,14 @@
  * Copyright (C) 2017 Hakim El Hattab, http://hakim.se
  */
 /*********************************************
+ * CUSTOM STYLES
+ *********************************************/
+mark {
+  background-color: #0db7ed; }
+  mark .hljs-keyword, mark .hljs-number, mark .hljs-title, mark .hljs-string {
+    color: #000; }
+
+/*********************************************
  * RESET STYLES
  *********************************************/
 html, body, .reveal div, .reveal span, .reveal applet, .reveal object, .reveal iframe,

@@ -6,6 +6,16 @@
  * Copyright (C) 2017 Hakim El Hattab, http://hakim.se
  */
 
+/*********************************************
+ * CUSTOM STYLES
+ *********************************************/
+mark {
+	background-color: #0db7ed;
+
+	.hljs-keyword, .hljs-number, .hljs-title, .hljs-string {
+		color: #000;
+	}
+}
 
 /*********************************************
  * RESET STYLES
