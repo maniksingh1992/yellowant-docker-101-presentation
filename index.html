@@ -215,6 +215,91 @@
       </section>
 
       <!-- Run multiple containers with Docker Compose -->
+      <section>
+        <section>
+          <h1>Run multiple containers with Docker Compose</h1>
+        </section>
+
+        <section>
+          <p>docker-compose.yml</p>
+          <pre><code data-trim data-noescape>
+            version: '3'
+            services:
+              web:
+                build: .
+                ports:
+                  - "4000:80"
+              redis:
+                image: "redis:alpine"
+          </code></pre>
+        </section>
+
+        <section>
+          <p>requirements.txt</p>
+          <pre><code data-trim data-noescape>
+            Flask
+            <mark>redis</mark>
+          </code></pre>
+          <p>app.py</p>
+          <pre><code data-trim data-noescape>
+            from flask import Flask
+            import os
+            <mark>import time</mark>
+            <mark>import redis</mark>
+
+            app = Flask(__name__)
+            <mark>cache = redis.Redis(host='redis', port=6379)</mark>
+
+            <mark>
+            def get_hit_count():
+                retries = 5
+                while True:
+                    try:
+                        return cache.incr('hits')
+                    except redis.exceptions.ConnectionError as exc:
+                        if retries == 0:
+                            raise exc
+                        retries -= 1
+                        time.sleep(0.5)
+            </mark>
+
+            @app.route("/")
+            def hello():
+                <mark>count = get_hit_count()</mark>
+                name = os.getenv("NAME", "world")
+
+                html = "&lt;h3&gt;Hello {name}!<mark> I have been seen {count} times.</mark>&lt;/h3&gt;"
+
+                return html.format(name=name<mark>, count=count</mark>)
+
+            if __name__ == "__main__":
+                app.run(host='0.0.0.0', port=80)
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Start the Multiple Containers</h2>
+          <div class="fragment">
+            <p>Docker Compose Build</p>
+            <pre><code data-trim>$ docker-compose build</code></pre>
+          </div>
+          <div class="fragment">
+            <p>Docker Compose Up</p>
+            <pre><code data-trim>$ docker-compose up</code></pre>
+            <p>OR run Docker Compose in detached mode</p>
+            <pre><code data-trim>
+              $ docker-compose up -d
+              $ docker-compose stop
+            </code></pre>
+          </div>
+
+          <aside class="notes">
+            <p>docker stop $(docker ps -a -q)</p>
+            <p>docker rm $(docker ps -a -q)</p>
+          </aside>
+        </section>
+
+      </section>
 
       <!-- Scale your app to run multiple containers -->
       <section>
